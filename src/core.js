@@ -29,6 +29,7 @@
  */
 
 const EventHandler = require('./event-handler.js');
+const merge = require('deepmerge');
 
 const resolveTreeByKey = (tree, key, defaultValue) => {
   let result;
@@ -78,10 +79,16 @@ class Core extends EventHandler {
 
   /**
    * Create core instance
+   * @param {Object} defaultConfiguration Default configuration
+   * @param {Object} configuration Configuration given
+   * @param {Object} options Options
    */
-  constructor(name) {
+  constructor(name, defaultConfiguration, configuration, options) {
     super(name);
 
+    const merger = merge.default ? merge.default : merge; // NOTE: Why ?!
+    this.configuration = merger(defaultConfiguration, configuration);
+    this.options = options;
     this.providers = [];
     this.registry = [];
     this.instances = {};

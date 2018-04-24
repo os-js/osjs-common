@@ -1,6 +1,6 @@
 {
   "name": "@osjs/common",
-  "version": "3.0.0-alpha.1",
+  "version": "3.0.0-alpha.2",
   "description": "OS.js v3 Common Modules",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,9 @@
   "keywords": [
     "osjs"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "deepmerge": "^2.1.0"
+  },
   "author": "Anders Evenrud <andersevenrud@gmail.com>",
   "license": "BSD-2-Clause",
   "bugs": {
