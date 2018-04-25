@@ -150,7 +150,9 @@ class Core extends EventHandler {
    * @return {*}
    */
   config(key, defaultValue) {
-    return resolveTreeByKey(this.configuration, key, defaultValue);
+    return key
+      ? resolveTreeByKey(this.configuration, key, defaultValue)
+      : Object.assign({}, this.configuration);
   }
 
   /**
