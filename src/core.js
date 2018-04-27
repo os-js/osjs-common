@@ -70,6 +70,10 @@ const loadProviders = async (providers, filter) => {
   return true;
 };
 
+const providerOptions = (name, defaults, opts = {}) => Object.assign({
+  args: defaults[name] ? defaults[name] : {}
+}, opts);
+
 /**
  * Core
  *
@@ -79,12 +83,13 @@ class Core extends EventHandler {
 
   /**
    * Create core instance
+   * @param {Array} defaultProviders Default providers
    * @param {Object} defaultConfiguration Default configuration
    * @param {Object} configuration Configuration given
    * @param {Object} options Options
    */
-  constructor(name, defaultConfiguration, configuration, options) {
-    super(name);
+  constructor(defaultProviders, defaultConfiguration, configuration, options) {
+    super('Core');
 
     const merger = merge.default ? merge.default : merge; // NOTE: Why ?!
     this.configuration = merger(defaultConfiguration, configuration);
@@ -95,6 +100,14 @@ class Core extends EventHandler {
     this.booted = false;
     this.started = false;
     this.destroyed = false;
+
+    if (options.registerDefault && defaultProviders.length) {
+      const defaults = typeof options.registerDefault === 'object'
+        ? options.registerDefault || {}
+        : {};
+
+      defaultProviders.forEach(p => this.register(p.class, providerOptions(p.name, defaults, p.options || {})))
+    }
   }
 
   /**
