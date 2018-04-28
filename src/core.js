@@ -119,7 +119,13 @@ class Core extends EventHandler {
     }
     this.destroyed = true;
 
-    this.providers.forEach(({provider}) => provider.destroy());
+    this.providers.forEach(({provider}) => {
+      try {
+        provider.destroy()
+      } catch (e) {
+        console.warn(e);
+      }
+    });
 
     this.providers = [];
     this.instances = {};
