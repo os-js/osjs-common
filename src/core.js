@@ -28,51 +28,9 @@
  * @licence Simplified BSD License
  */
 
+const {resolveTreeByKey, providerOptions, providerHandler} = require('./utils.js');
 const EventHandler = require('./event-handler.js');
 const merge = require('deepmerge');
-
-const resolveTreeByKey = (tree, key, defaultValue) => {
-  let result;
-
-  try {
-    result = key
-      .split(/\./g)
-      .reduce((result, key) => result[key], Object.assign({}, tree));
-  } catch (e) { /* noop */ }
-
-  return typeof result === 'undefined' ? defaultValue : result;
-};
-
-const loadProviders = async (providers, filter) => {
-  const list = providers
-    .filter(filter)
-    .map(({provider}) => provider);
-
-  console.log('Loading', list.length, 'providers');
-
-  try {
-    for (let i = 0; i < list.length; i++) {
-      try {
-        await list[i].init();
-      } catch (e) {
-        console.warn(e);
-      }
-    }
-  } catch (e) {
-    console.error(e);
-    console.groupEnd();
-
-    return false;
-  }
-
-  list.forEach(p => p.start());
-
-  return true;
-};
-
-const providerOptions = (name, defaults, opts = {}) => Object.assign({
-  args: defaults[name] ? defaults[name] : {}
-}, opts);
 
 /**
  * Core
@@ -94,12 +52,10 @@ class Core extends EventHandler {
     const merger = merge.default ? merge.default : merge; // NOTE: Why ?!
     this.configuration = merger(defaultConfiguration, configuration);
     this.options = options;
-    this.providers = [];
-    this.registry = [];
-    this.instances = {};
     this.booted = false;
     this.started = false;
     this.destroyed = false;
+    this.providers = providerHandler(this);
 
     if (options.registerDefault && defaultProviders.length) {
       const defaults = typeof options.registerDefault === 'object'
@@ -117,18 +73,10 @@ class Core extends EventHandler {
     if (this.destroyed) {
       return false;
     }
+
+    this.booted = false;
     this.destroyed = true;
-
-    this.providers.forEach(({provider}) => {
-      try {
-        provider.destroy()
-      } catch (e) {
-        console.warn(e);
-      }
-    });
-
-    this.providers = [];
-    this.instances = {};
+    this.providers.destroy();
 
     return true;
   }
@@ -136,28 +84,29 @@ class Core extends EventHandler {
   /**
    * Boots up OS.js
    */
-  async boot() {
+  boot() {
     if (this.booted) {
-      return;
+      return Promise.resolve(true);
     }
 
     this.booted = true;
 
-    await loadProviders(this.providers, ({options}) => options.before);
+    return this.providers.init(true)
+      .then(() => true);
   }
 
   /**
    * Starts all core services
    */
-  async start() {
+  start() {
     if (this.started) {
-      return;
+      return Promise.resolve(true);
     }
+
     this.started = true;
 
-    const result = await loadProviders(this.providers, ({options}) => !options.before);
-
-    return result;
+    return this.providers.init(false)
+      .then(() => true);
   }
 
   /**
@@ -183,30 +132,7 @@ class Core extends EventHandler {
    * @param {Object} [options.args] Arguments to send to the constructor
    */
   register(ref, options = {}) {
-    try {
-      const instance = new ref(this, options.args);
-      this.providers.push({
-        options,
-        provider: instance
-      });
-    } catch (e) {
-      console.error('Core::register()', e);
-    }
-  }
-
-  /*
-   * Wrapper for registering a service provider
-   */
-  _registerMethod(name, singleton, callback) {
-    console.log(`Registering service provider: "${name}" (${singleton ? 'singleton' : 'instance'})`);
-
-    this.registry.push({
-      singleton,
-      name,
-      make(...args) {
-        return callback(...args);
-      }
-    });
+    this.providers.register(ref, options);
   }
 
   /**
@@ -216,7 +142,7 @@ class Core extends EventHandler {
    * @param {Function} callback Callback that returns an instance
    */
   instance(name, callback) {
-    this._registerMethod(name, false, callback);
+    this.providers.bind(name, false, callback);
   }
 
   /**
@@ -226,7 +152,7 @@ class Core extends EventHandler {
    * @param {Function} callback Callback that returns an instance
    */
   singleton(name, callback) {
-    this._registerMethod(name, true, callback);
+    this.providers.bind(name, true, callback);
   }
 
   /**
@@ -237,22 +163,7 @@ class Core extends EventHandler {
    * @return {*} An instance of a service
    */
   make(name, ...args) {
-    const found = this.registry.find(p => p.name === name);
-    if (!found) {
-      throw new Error(`Provider '${name}' not found`);
-    }
-
-    if (!found.singleton) {
-      return found.make(...args);
-    }
-
-    if (!this.instances[name]) {
-      if (found) {
-        this.instances[name] = found.make(...args);
-      }
-    }
-
-    return this.instances[name];
+    return this.providers.make(name, ...args);
   }
 
   /**
@@ -261,7 +172,7 @@ class Core extends EventHandler {
    * @return {Boolean}
    */
   has(name) {
-    return this.registry.findIndex(p => p.name === name) !== -1;
+    return this.providers.has(name);
   }
 }
 
