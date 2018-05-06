@@ -1,5 +1,10 @@
 # Changelog for osjs-common
 
+## 3.0.0-alpha.6
+
+* Added npmignore
+* Added CHANGELOG
+
 ## 3.0.0-alpha.5
 
 * Updated service provider handling
