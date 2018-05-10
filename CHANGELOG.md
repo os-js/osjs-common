@@ -1,5 +1,9 @@
 # Changelog for osjs-common
 
+## 3.0.0-alpha.7
+
+* Removed 'defaultProviders' from Core class
+
 ## 3.0.0-alpha.6
 
 * Added npmignore
