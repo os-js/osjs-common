@@ -40,10 +40,6 @@ const resolveTreeByKey = (tree, key, defaultValue) => {
   return typeof result === 'undefined' ? defaultValue : result;
 };
 
-const providerOptions = (name, defaults, opts = {}) => Object.assign({
-  args: defaults[name] ? defaults[name] : {}
-}, opts);
-
 const providerHandler = (core) => {
   const instances = {};
   const providers = [];
@@ -109,4 +105,4 @@ const providerHandler = (core) => {
   return {register, init, bind, has, make, destroy};
 };
 
-module.exports = {resolveTreeByKey, providerOptions, providerHandler};
+module.exports = {resolveTreeByKey, providerHandler};

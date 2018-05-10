@@ -28,7 +28,7 @@
  * @licence Simplified BSD License
  */
 
-const {resolveTreeByKey, providerOptions, providerHandler} = require('./utils.js');
+const {resolveTreeByKey, providerHandler} = require('./utils.js');
 const EventHandler = require('./event-handler.js');
 const merge = require('deepmerge');
 
@@ -41,12 +41,11 @@ class Core extends EventHandler {
 
   /**
    * Create core instance
-   * @param {Array} defaultProviders Default providers
    * @param {Object} defaultConfiguration Default configuration
    * @param {Object} configuration Configuration given
    * @param {Object} options Options
    */
-  constructor(defaultProviders, defaultConfiguration, configuration, options) {
+  constructor(defaultConfiguration, configuration, options) {
     super('Core');
 
     const merger = merge.default ? merge.default : merge; // NOTE: Why ?!
@@ -56,14 +55,6 @@ class Core extends EventHandler {
     this.started = false;
     this.destroyed = false;
     this.providers = providerHandler(this);
-
-    if (options.registerDefault && defaultProviders.length) {
-      const defaults = typeof options.registerDefault === 'object'
-        ? options.registerDefault || {}
-        : {};
-
-      defaultProviders.forEach(p => this.register(p.class, providerOptions(p.name, defaults, p.options || {})))
-    }
   }
 
   /**
