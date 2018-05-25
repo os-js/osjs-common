@@ -45,8 +45,14 @@ const providerHandler = (core) => {
   const providers = [];
   const registry = [];
 
-  const each = (list, method) => Promise.all(list.map(p => p.provider[method]()))
-    .catch(err => console.warn(e))
+  const each = (list, method) => Promise.all(list.map(p => {
+    try {
+      return p.provider[method]();
+    } catch (e) {
+      return Promise.reject(e);
+    }
+  }))
+    .catch(err => console.warn(err))
 
   const handle = list => each(list, 'init')
     .then(each(list, 'start'));
