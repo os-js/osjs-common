@@ -31,9 +31,11 @@
 const CoreBase = require('./src/core.js');
 const EventHandler = require('./src/event-handler.js');
 const ServiceProvider = require('./src/service-provider.js');
+const BasicApplication = require('./src/basic-application.js');
 
 module.exports = {
   CoreBase,
   EventHandler,
-  ServiceProvider
+  ServiceProvider,
+  BasicApplication
 };
