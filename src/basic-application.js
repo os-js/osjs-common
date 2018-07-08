@@ -30,8 +30,14 @@
 
 const EventHandler = require('./event-handler.js');
 
+/*
+ * Get basename of a file
+ */
 const basename = path => path.split('/').reverse()[0];
 
+/*
+ * Get path of a file
+ */
 const pathname = path => {
   const split = path.split('/');
   split.splice(split.length - 1, 1);
@@ -42,9 +48,19 @@ const pathname = path => {
  * Basic Application Helper
  *
  * @desc A class for helping creating basic applications with open/load/create functionality.
+ * Also sets the internal proc args for sessions.
  */
 class BasicApplication extends EventHandler {
 
+  /**
+   * Basic Application Constructor
+   * @param {Core} core OS.js Core API
+   * @param {Application} proc The application process
+   * @param {Window} win The main application window
+   * @param {Object} options Basic application options
+   * @param {string[]} [options.mimeTypes] What MIME types to support
+   * @param {string} [options.defaultFilename] Default filename of a new file
+   */
   constructor(core, proc, win, options) {
     super('BasicApplication<' + proc.name + '>');
 
@@ -58,15 +74,19 @@ class BasicApplication extends EventHandler {
     }, options);
   }
 
+  /**
+   * Destroys all Basic Application internals
+   */
   destroy() {
     this.off();
   }
 
+  /**
+   * Initializes the application
+   */
   init() {
-    if (this.proc.args.path) {
-      this.open({
-        path: this.proc.args.path
-      });
+    if (this.proc.args.file) {
+      this.open(this.proc.args.file);
     } else {
       this.create();
     }
@@ -74,10 +94,17 @@ class BasicApplication extends EventHandler {
     return Promise.resolve(true);
   }
 
+  /**
+   * Gets options for a dialog
+   * @param {string} type Dialog type
+   * @return {Object}
+   */
   getDialogOptions(type) {
-    const {path} = this.proc.args;
     const {defaultFilename} = this.options;
     const defaultPath = this.core.config('vfs.defaultPath');
+    const path = this.proc.args.file
+      ? this.proc.args.file.path
+      : null;
 
     return [{
       type,
@@ -92,18 +119,26 @@ class BasicApplication extends EventHandler {
     }];
   }
 
+  /**
+   * Updates the window title to match open file
+   */
   updateWindowTitle() {
     if (this.win) {
       const {translatableFlat} = this.core.make('osjs/locale');
       const prefix = translatableFlat(this.proc.metadata.title);
-      const title = this.proc.args.path
-        ? basename(this.proc.args.path)
+      const title = this.proc.args.file
+        ? basename(this.proc.args.file.path)
         : this.options.defaultFilename;
 
       this.win.setTitle(`${prefix} - ${title}`);
     }
   }
 
+  /**
+   * Creates a new dialog of a type
+   * @param {string} type Dialog type
+   * @param {Function} cb Callback
+   */
   createDialog(type, cb) {
     const [args, options] = this.getDialogOptions(type);
 
@@ -114,38 +149,62 @@ class BasicApplication extends EventHandler {
     });
   }
 
+  /**
+   * Opens given file
+   * @desc Does not do any actual VFS operation
+   * @param {Object} file A file object
+   */
   open(item) {
-    this.proc.args.path = item.path;
+    this.proc.args.file = Object.assign({}, item);
 
     this.emit('open-file', item)
 
     this.updateWindowTitle();
   }
 
+  /**
+   * Saves given file
+   * @desc Does not do any actual VFS operation
+   * @param {Object} file A file object
+   */
   save(item) {
-    this.proc.args.path = item.path;
+    this.proc.args.file = Object.assign({}, item);
 
     this.emit('save-file', item);
 
     this.updateWindowTitle();
   }
 
+  /**
+   * Create new file
+   * @desc Does not do any actual VFS operation
+   */
   create() {
-    this.proc.args.path = null;
+    this.proc.args.file = null;
 
     this.emit('new-file');
 
     this.updateWindowTitle();
   }
 
+  /**
+   * Create new file
+   * @see BasicApplication#create
+   */
   createNew() {
     this.create();
   }
 
+  /**
+   * Creates a new save dialog
+   */
   createSaveDialog() {
     this.createDialog('save', item => this.save(item));
   }
 
+  /**
+   * Creates a new load dialog
+   */
   createOpenDialog() {
     this.createDialog('load', item => this.open(item));
   }
