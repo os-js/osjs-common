@@ -1,5 +1,9 @@
 # Changelog for osjs-common
 
+## 3.0.0-alpha.8
+
+* Added 'BasicApplication' class
+
 ## 3.0.0-alpha.7
 
 * Removed 'defaultProviders' from Core class
