@@ -1,5 +1,9 @@
 # Changelog for osjs-common
 
+## 3.0.0-alpha.9
+
+* Some improvements to BasicApplication
+
 ## 3.0.0-alpha.8
 
 * Added 'BasicApplication' class
