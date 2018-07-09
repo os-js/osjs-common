@@ -130,7 +130,11 @@ class BasicApplication extends EventHandler {
         ? basename(this.proc.args.file.path)
         : this.options.defaultFilename;
 
-      this.win.setTitle(`${prefix} - ${title}`);
+      if (title) {
+        this.win.setTitle(`${prefix} - ${title}`);
+      } else {
+        this.win.setTitle(prefix);
+      }
     }
   }
 
