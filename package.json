@@ -1,6 +1,6 @@
 {
   "name": "@osjs/common",
-  "version": "3.0.0-alpha.9",
+  "version": "3.0.0-alpha.10",
   "description": "OS.js v3 Common Modules",
   "main": "index.js",
   "scripts": {
