@@ -49,6 +49,7 @@ class Core extends EventHandler {
     super('Core');
 
     const merger = merge.default ? merge.default : merge; // NOTE: Why ?!
+    this.logger = console;
     this.configuration = merger(defaultConfiguration, configuration);
     this.options = options;
     this.booted = false;

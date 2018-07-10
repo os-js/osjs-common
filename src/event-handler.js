@@ -136,8 +136,6 @@ class EventHandler {
    * @return {EventHandler} Returns current instance
    */
   emit(name, ...args) {
-    console.debug(`[${this.name}] emit(${name})`, ...args);
-
     getEventNames(name).forEach(n => {
       if (this.events[n]) {
         this.events[n].forEach(callback => callback(...args));

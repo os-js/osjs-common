@@ -78,7 +78,7 @@ const providerHandler = (core) => {
   };
 
   const bind = (name, singleton, callback) => {
-    console.log('Provider binding', name);
+    core.logger.info('Provider binding', name);
 
     registry.push({
       singleton,
