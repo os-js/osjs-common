@@ -1,5 +1,9 @@
 # Changelog for osjs-common
 
+## 3.0.0-alpha.11
+
+* Added dependency graph support for service providers
+
 ## 3.0.0-alpha.10
 
 * Updated logging
