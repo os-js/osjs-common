@@ -51,6 +51,15 @@ class ServiceProvider {
   }
 
   /**
+   * A list of services this provider can create
+   * @desc Used for resolving a dependency graph
+   * @return {string[]}
+   */
+  provides() {
+    return [];
+  }
+
+  /**
    * Initializes provider
    */
   async init() {

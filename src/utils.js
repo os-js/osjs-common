@@ -28,6 +28,8 @@
  * @licence Simplified BSD License
  */
 
+const {Graph, Node} = require('async-dependency-graph');
+
 const resolveTreeByKey = (tree, key, defaultValue) => {
   let result;
 
@@ -40,22 +42,50 @@ const resolveTreeByKey = (tree, key, defaultValue) => {
   return typeof result === 'undefined' ? defaultValue : result;
 };
 
+const each = (list, method) => Promise.all(list.map(p => {
+  try {
+    return p.provider[method]();
+  } catch (e) {
+    return Promise.reject(e);
+  }
+}))
+  .catch(err => console.warn(err))
+
 const providerHandler = (core) => {
   const instances = {};
   const providers = [];
   const registry = [];
 
-  const each = (list, method) => Promise.all(list.map(p => {
-    try {
-      return p.provider[method]();
-    } catch (e) {
-      return Promise.reject(e);
-    }
-  }))
-    .catch(err => console.warn(err))
+  const createGraph = (list, method) => {
+    const graph = new Graph();
+    const provides = list.map(p => typeof p.provider.provides === 'function' ? p.provider.provides() : []);
+    const dependsOnIndex = wants => provides.findIndex(arr => arr.some(a => wants.indexOf(a) !== -1));
 
-  const handle = list => each(list, 'init')
-    .then(each(list, 'start'));
+    list.forEach((p, i) => {
+      graph.addNode(new Node(String(i), () => {
+        try {
+          return Promise.resolve(p.provider[method]());
+        } catch (e) {
+          return Promise.reject(e);
+        }
+      }));
+    });
+
+    list.forEach((p, i) => {
+      if (p.options.depends instanceof Array) {
+        const dindex = dependsOnIndex(p.options.depends);
+        if (dindex !== -1) {
+          graph.addDependency(String(i), String(dindex));
+        }
+      }
+    });
+
+    return graph.traverse()
+      .catch(e => console.warn(e));
+  };
+
+  const handle = list => createGraph(list, 'init')
+    .then(createGraph(list, 'start'));
 
   const has = name => registry.findIndex(p => p.name === name) !== -1;
 
