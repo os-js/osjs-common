@@ -1,5 +1,9 @@
 # Changelog for osjs-common
 
+## 3.0.0-alpha.12
+
+* Support force override of settings
+
 ## 3.0.0-alpha.11
 
 * Added dependency graph support for service providers
