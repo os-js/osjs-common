@@ -31,6 +31,7 @@
 const {resolveTreeByKey, providerHandler} = require('./utils.js');
 const EventHandler = require('./event-handler.js');
 const merge = require('deepmerge');
+const omitDeep = require('omit-deep');
 
 /**
  * Core
@@ -48,9 +49,12 @@ class Core extends EventHandler {
   constructor(defaultConfiguration, configuration, options) {
     super('Core');
 
-    const merger = merge.default ? merge.default : merge; // NOTE: Why ?!
+    // https://github.com/KyleAMathews/deepmerge#webpack-bug
+    const merger = merge.default ? merge.default : merge;
+    const omitted = omitDeep(defaultConfiguration, options.omit || []);
+
     this.logger = console;
-    this.configuration = merger(defaultConfiguration, configuration);
+    this.configuration = merger(omitted, configuration);
     this.options = options;
     this.booted = false;
     this.started = false;
