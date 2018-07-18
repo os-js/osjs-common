@@ -1,5 +1,11 @@
 # Changelog for osjs-common
 
+## 3.0.0-alpha.13
+
+* Added travis-ci badge to README
+* Lint pass
+* Added initial travis-ci config
+
 ## 3.0.0-alpha.12
 
 * Support force override of settings
