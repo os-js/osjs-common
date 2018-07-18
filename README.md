@@ -13,4 +13,6 @@
 
 This is the common modules for OS.js.
 
+[![Build Status](https://travis-ci.org/os-js/osjs-common.svg?branch=master)](https://travis-ci.org/os-js/osjs-common)
+
 **PLEASE NOTE THAT THIS IS AN ALPHA PRE-RELEASE AND SUBJECT TO CHANGE WITHOUT NOTICE**
