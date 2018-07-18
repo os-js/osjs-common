@@ -49,7 +49,7 @@ const each = (list, method) => Promise.all(list.map(p => {
     return Promise.reject(e);
   }
 }))
-  .catch(err => console.warn(err))
+  .catch(err => console.warn(err));
 
 const providerHandler = (core) => {
   const instances = {};
@@ -93,8 +93,8 @@ const providerHandler = (core) => {
 
   const init = (before) =>
     handle(before
-           ? providers.filter(p => p.options.before)
-           : providers.filter(p => !p.options.before));
+      ? providers.filter(p => p.options.before)
+      : providers.filter(p => !p.options.before));
 
   const register = (ref, options) => {
     try {

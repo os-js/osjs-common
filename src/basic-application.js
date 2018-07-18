@@ -161,7 +161,7 @@ class BasicApplication extends EventHandler {
   open(item) {
     this.proc.args.file = Object.assign({}, item);
 
-    this.emit('open-file', item)
+    this.emit('open-file', item);
 
     this.updateWindowTitle();
   }
