@@ -85,7 +85,8 @@ const providerHandler = (core) => {
   };
 
   const handle = list => createGraph(list, 'init')
-    .then(createGraph(list, 'start'));
+    .then(() => createGraph(list, 'start'));
+
 
   const has = name => registry.findIndex(p => p.name === name) !== -1;
 
