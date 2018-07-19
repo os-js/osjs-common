@@ -1,5 +1,9 @@
 # Changelog for osjs-common
 
+## 3.0.0-alpha.14
+
+* Fixed a bug where provider start() was fired imediately
+
 ## 3.0.0-alpha.13
 
 * Added travis-ci badge to README
