@@ -2,10 +2,20 @@
   "name": "@osjs/common",
   "version": "3.0.0-alpha.14",
   "description": "OS.js v3 Common Modules",
-  "main": "index.js",
+  "main": "dist/main.js",
+  "module": "dist/main.js",
+  "files": [
+    "dist/main.js.map",
+    "dist/main.js",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "eslint": "eslint index.js src/**/*.js"
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "eslint": "eslint index.js src/**/*.js",
+    "prepublishOnly": "npm run eslint && rm ./dist/* && npm run build"
   },
   "repository": {
     "type": "git",
@@ -14,13 +24,19 @@
   "keywords": [
     "osjs"
   ],
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^5.1.0",
+    "@babel/core": "^7.0.0-beta.54",
+    "@babel/plugin-transform-runtime": "^7.0.0-beta.54",
+    "@babel/preset-env": "^7.0.0-beta.54",
+    "@babel/runtime": "^7.0.0-beta.54",
+    "babel-loader": "^8.0.0-beta.4",
+    "webpack": "^4.16.2",
+    "webpack-cli": "^3.1.0",
     "async-dependency-graph": "^1.0.3",
     "deepmerge": "^2.1.0",
     "omit-deep": "^0.3.0"
-  },
-  "devDependencies": {
-    "eslint": "^5.1.0"
   },
   "author": "Anders Evenrud <andersevenrud@gmail.com>",
   "license": "BSD-2-Clause",
