@@ -1,5 +1,9 @@
 # Changelog for osjs-common
 
+## 3.0.0-alpha.15
+
+* Prebuild npm package
+
 ## 3.0.0-alpha.14
 
 * Fixed a bug where provider start() was fired imediately
