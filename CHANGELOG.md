@@ -1,5 +1,9 @@
 # Changelog for osjs-common
 
+## 3.0.0-alpha.17
+
+* Publish in production mode
+
 ## 3.0.0-alpha.16
 
 * Removed a gitignore file leading to missing files in npm package
