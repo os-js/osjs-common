@@ -1,5 +1,9 @@
 # Changelog for osjs-common
 
+## 3.0.0-alpha.18
+
+* EventHandler now supports persistent events
+
 ## 3.0.0-alpha.17
 
 * Publish in production mode
