@@ -76,6 +76,7 @@ class EventHandler {
    * @param {String|String[]} name Event name
    * @param {Function} callback Callback function
    * @param {Object} [options] Options
+   * @param {boolean} [options.persist] This even handler cannot be removed unless forced
    * @return {EventHandler} Returns current instance
    */
   on(name, callback, options = {}) {
@@ -90,7 +91,7 @@ class EventHandler {
         this.events[n] = [];
       }
 
-      this.events[n].push(callback);
+      this.events[n].push({callback, options});
     });
 
     return this;
@@ -105,21 +106,26 @@ class EventHandler {
    *
    * @param {String|String[]} name Event name
    * @param {Function} [callback] Callback function
+   * @param {boolean} [force=false] Forces removal even if set to persis
    * @return {EventHandler} Returns current instance
    */
-  off(name, callback = null) {
+  off(name, callback = null, force = false) {
     getEventNames(name)
       .filter(n => !!this.events[n])
       .forEach(n => {
         if (callback) {
           let i = this.events[n].length;
           while (i--) {
-            if (this.events[n][i] === callback) {
+            const ev = this.events[n][i];
+            const removable = !ev.options.persist || force;
+            if (removable && ev.callback === callback) {
               this.events[n].splice(i, 1);
             }
           }
         } else {
-          this.events[n] = [];
+          this.events[n] = force
+            ? []
+            : this.events[n].filter(({options}) => options.persist !== true);
         }
       });
 
@@ -138,7 +144,7 @@ class EventHandler {
   emit(name, ...args) {
     getEventNames(name).forEach(n => {
       if (this.events[n]) {
-        this.events[n].forEach(callback => callback(...args));
+        this.events[n].forEach(({callback}) => callback(...args));
       }
     });
 
