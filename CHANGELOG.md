@@ -1,5 +1,9 @@
 # Changelog for osjs-common
 
+## 3.0.0-alpha.20
+
+* Fixed Babel now compiling to CommonJS
+
 ## 3.0.0-alpha.19
 
 * Updated dependencies
