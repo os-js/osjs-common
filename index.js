@@ -28,14 +28,7 @@
  * @licence Simplified BSD License
  */
 
-const CoreBase = require('./src/core.js');
-const EventHandler = require('./src/event-handler.js');
-const ServiceProvider = require('./src/service-provider.js');
-const BasicApplication = require('./src/basic-application.js');
-
-module.exports = {
-  CoreBase,
-  EventHandler,
-  ServiceProvider,
-  BasicApplication
-};
+export * from './src/core.js';
+export * from './src/event-handler.js';
+export * from './src/service-provider.js';
+export * from './src/basic-application.js';

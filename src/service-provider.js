@@ -35,7 +35,7 @@
  *
  * @interface
  */
-class ServiceProvider {
+export class ServiceProvider {
 
   /**
    * Constructor
@@ -78,5 +78,3 @@ class ServiceProvider {
   }
 
 }
-
-module.exports = ServiceProvider;

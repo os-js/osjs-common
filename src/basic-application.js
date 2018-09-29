@@ -28,7 +28,7 @@
  * @licence Simplified BSD License
  */
 
-const EventHandler = require('./event-handler.js');
+import {EventHandler} from './event-handler.js';
 
 /*
  * Get basename of a file
@@ -50,7 +50,7 @@ const pathname = path => {
  * @desc A class for helping creating basic applications with open/load/create functionality.
  * Also sets the internal proc args for sessions.
  */
-class BasicApplication extends EventHandler {
+export class BasicApplication extends EventHandler {
 
   /**
    * Basic Application Constructor
@@ -213,5 +213,3 @@ class BasicApplication extends EventHandler {
     this.createDialog('load', item => this.open(item));
   }
 }
-
-module.exports = BasicApplication;

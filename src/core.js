@@ -28,17 +28,17 @@
  * @licence Simplified BSD License
  */
 
-const {resolveTreeByKey, providerHandler} = require('./utils.js');
-const EventHandler = require('./event-handler.js');
-const merge = require('deepmerge');
-const omitDeep = require('omit-deep');
+import {resolveTreeByKey, providerHandler} from './utils.js';
+import {EventHandler} from './event-handler.js';
+import merge from 'deepmerge';
+import omitDeep from 'omit-deep';
 
 /**
  * Core
  *
  * @desc Main class for OS.js service providers and bootstrapping.
  */
-class Core extends EventHandler {
+export class CoreBase extends EventHandler {
 
   /**
    * Create core instance
@@ -171,5 +171,3 @@ class Core extends EventHandler {
     return this.providers.has(name);
   }
 }
-
-module.exports = Core;
