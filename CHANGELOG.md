@@ -1,5 +1,9 @@
 # Changelog for osjs-common
 
+## 3.0.0-alpha.21
+
+* Updated all code to ES6
+
 ## 3.0.0-alpha.20
 
 * Fixed Babel now compiling to CommonJS
