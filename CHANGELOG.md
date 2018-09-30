@@ -1,5 +1,9 @@
 # Changelog for osjs-common
 
+## 3.0.0-alpha.22
+
+* Updated dependencies
+
 ## 3.0.0-alpha.21
 
 * Updated all code to ES6
