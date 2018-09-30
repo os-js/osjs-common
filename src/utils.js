@@ -28,9 +28,9 @@
  * @licence Simplified BSD License
  */
 
-const {Graph, Node} = require('async-dependency-graph');
+import {Graph, Node} from 'async-dependency-graph';
 
-const resolveTreeByKey = (tree, key, defaultValue) => {
+export const resolveTreeByKey = (tree, key, defaultValue) => {
   let result;
 
   try {
@@ -51,7 +51,7 @@ const each = (list, method) => Promise.all(list.map(p => {
 }))
   .catch(err => console.warn(err));
 
-const providerHandler = (core) => {
+export const providerHandler = (core) => {
   const instances = {};
   const providers = [];
   const registry = [];
@@ -141,5 +141,3 @@ const providerHandler = (core) => {
 
   return {register, init, bind, has, make, destroy};
 };
-
-module.exports = {resolveTreeByKey, providerHandler};
