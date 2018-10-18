@@ -52,9 +52,9 @@ const each = (list, method) => Promise.all(list.map(p => {
   .catch(err => console.warn(err));
 
 export const providerHandler = (core) => {
-  const instances = {};
-  const providers = [];
-  const registry = [];
+  let instances = {};
+  let providers = [];
+  let registry = [];
 
   const createGraph = (list, method) => {
     const graph = new Graph();
@@ -90,7 +90,12 @@ export const providerHandler = (core) => {
 
   const has = name => registry.findIndex(p => p.name === name) !== -1;
 
-  const destroy = () => each(providers, 'destroy');
+  const destroy = () => {
+    each(providers, 'destroy');
+
+    instances = {};
+    registry = [];
+  };
 
   const init = (before) =>
     handle(before

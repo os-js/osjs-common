@@ -72,7 +72,10 @@ export class CoreBase extends EventHandler {
 
     this.booted = false;
     this.destroyed = true;
+    this.started = false;
     this.providers.destroy();
+
+    super.destroy();
 
     return true;
   }
@@ -85,6 +88,8 @@ export class CoreBase extends EventHandler {
       return Promise.resolve(true);
     }
 
+    this.started = false;
+    this.destroyed = false;
     this.booted = true;
 
     return this.providers.init(true)
