@@ -1,5 +1,9 @@
 # Changelog for osjs-common
 
+## 3.0.0-alpha.23
+
+* Add proper cleanup on Core#destroy
+
 ## 3.0.0-alpha.22
 
 * Updated dependencies
