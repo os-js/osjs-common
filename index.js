@@ -29,6 +29,5 @@
  */
 
 export * from './src/core.js';
-export * from './src/event-handler.js';
 export * from './src/service-provider.js';
-export * from './src/basic-application.js';
+export {EventHandler as EventEmitter} from '@osjs/event-emitter';

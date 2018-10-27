@@ -29,7 +29,7 @@
  */
 
 import {resolveTreeByKey, providerHandler} from './utils.js';
-import {EventHandler} from './event-handler.js';
+import {EventEmitter} from '@osjs/event-emitter';
 import merge from 'deepmerge';
 import omitDeep from 'omit-deep';
 
@@ -38,7 +38,7 @@ import omitDeep from 'omit-deep';
  *
  * @desc Main class for OS.js service providers and bootstrapping.
  */
-export class CoreBase extends EventHandler {
+export class CoreBase extends EventEmitter {
 
   /**
    * Create core instance
