@@ -1,5 +1,9 @@
 # Changelog for osjs-common
 
+## 3.0.1
+
+* Removed some functionality that was separated into separate packages
+
 ## 3.0.0-alpha.23
 
 * Add proper cleanup on Core#destroy
