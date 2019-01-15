@@ -31,7 +31,7 @@
     "@babel/preset-env": "^7.1.0",
     "@babel/runtime": "^7.1.2",
     "@osjs/event-emitter": "^1.0.2",
-    "async-dependency-graph": "^1.1.0",
+    "async-dependency-graph": "^1.1.1",
     "babel-loader": "^8.0.4",
     "deepmerge": "^2.1.0",
     "eslint": "^5.6.1",
