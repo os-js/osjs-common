@@ -1,5 +1,13 @@
 # Changelog for osjs-common
 
+## 3.0.2
+
+* Updated README
+* Updated dependencies
+* Updated async-dependency-graph
+* Updated eslintrc
+* Updated copyright(s)
+
 ## 3.0.1
 
 * Removed some functionality that was separated into separate packages
