@@ -72,8 +72,17 @@ export const providerHandler = (core) => {
     });
 
     list.forEach((p, i) => {
-      if (p.options.depends instanceof Array) {
-        const dindex = dependsOnIndex(p.options.depends);
+      const dependsOptions = p.options.depends instanceof Array
+        ? p.options.depends
+        : [];
+
+      const dependsInstance = typeof p.provider.depends === 'function'
+        ? p.provider.depends()
+        : [];
+
+      const depends = [...dependsOptions, ...dependsInstance];
+      if (depends.length > 0) {
+        const dindex = dependsOnIndex(depends);
         if (dindex !== -1) {
           graph.addDependency(String(i), String(dindex));
         }

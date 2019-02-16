@@ -52,10 +52,17 @@ export class ServiceProvider {
 
   /**
    * A list of services this provider can create
-   * @desc Used for resolving a dependency graph
    * @return {string[]}
    */
   provides() {
+    return [];
+  }
+
+  /**
+   * A list of services this provider depends on
+   * @return {string[]}
+   */
+  depends() {
     return [];
   }
 
