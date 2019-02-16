@@ -1,5 +1,9 @@
 # Changelog for osjs-common
 
+## 3.0.3
+
+* Added 'depends()' method to service providers
+
 ## 3.0.2
 
 * Updated README
