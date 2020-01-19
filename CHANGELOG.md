@@ -1,5 +1,9 @@
 # Changelog for osjs-common
 
+## 3.0.5
+
+* Moved some devDependencies to dependencies
+
 ## 3.0.4
 
 * Updated dotfile usage
