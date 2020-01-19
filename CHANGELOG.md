@@ -1,5 +1,13 @@
 # Changelog for osjs-common
 
+## 3.0.4
+
+* Updated dotfile usage
+* Updated dependencies
+* Updated copyright notices in preambles
+* Updated eslint
+* Updated eslint npm script
+
 ## 3.0.3
 
 * Added 'depends()' method to service providers
