@@ -46,5 +46,52 @@
   "bugs": {
     "url": "https://github.com/os-js/osjs-common/issues"
   },
-  "homepage": "https://github.com/os-js/osjs-common#readme"
+  "homepage": "https://github.com/os-js/osjs-common#readme",
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "parserOptions": {
+      "sourceType": "module"
+    },
+    "extends": "@osjs/eslint-config"
+  },
+  "babel": {
+    "sourceType": "unambiguous",
+    "presets": [
+      "@babel/preset-env"
+    ],
+    "plugins": [
+      "@babel/plugin-transform-runtime"
+    ]
+  },
+  "esdoc": {
+    "source": "./src",
+    "destination": "./doc",
+    "plugins": [
+      {
+        "name": "esdoc-standard-plugin",
+        "option": {
+          "brand": {
+            "title": "OS.js Common API",
+            "description": "OS.js Common API Documentation",
+            "repository": "https://github.com/os-js/osjs-common",
+            "author": "Anders Evenrud <andersevenrud@gmail.com>"
+          },
+          "lint": {
+            "enable": false
+          },
+          "coverage": {
+            "enable": false
+          },
+          "undocumentIdentifier": {
+            "enable": false
+          }
+        }
+      },
+      {"name": "esdoc-publish-html-plugin"},
+      {"name": "./src/esdoc.js"}
+    ]
+  }
 }
