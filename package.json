@@ -25,6 +25,8 @@
     "osjs"
   ],
   "dependencies": {
+    "@osjs/event-emitter": "^1.0.8",
+    "async-dependency-graph": "^1.1.2",
     "deepmerge": "^4.2.2",
     "omit-deep": "^0.3.0"
   },
@@ -34,8 +36,6 @@
     "@babel/preset-env": "^7.8.3",
     "@babel/runtime": "^7.8.3",
     "@osjs/eslint-config": "^1.0.2",
-    "@osjs/event-emitter": "^1.0.8",
-    "async-dependency-graph": "^1.1.2",
     "babel-loader": "^8.0.6",
     "eslint": "^6.8.0",
     "webpack": "^4.41.5",
@@ -90,8 +90,12 @@
           }
         }
       },
-      {"name": "esdoc-publish-html-plugin"},
-      {"name": "./src/esdoc.js"}
+      {
+        "name": "esdoc-publish-html-plugin"
+      },
+      {
+        "name": "./src/esdoc.js"
+      }
     ]
   }
 }
