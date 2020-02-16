@@ -1,5 +1,9 @@
 # Changelog for osjs-common
 
+## 3.0.6
+
+* Now using @osjs/dev-meta
+
 ## 3.0.5
 
 * Moved some devDependencies to dependencies
