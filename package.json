@@ -7,6 +7,7 @@
   "files": [
     "dist/main.js.map",
     "dist/main.js",
+    "CHANGELOG.md",
     "README.md",
     "LICENSE"
   ],
