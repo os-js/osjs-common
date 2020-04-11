@@ -73,11 +73,12 @@ export class CoreBase extends EventEmitter {
     this.booted = false;
     this.destroyed = true;
     this.started = false;
-    this.providers.destroy();
+
+    const promises = this.providers.destroy();
 
     super.destroy();
 
-    return true;
+    return promises;
   }
 
   /**

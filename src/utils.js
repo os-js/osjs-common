@@ -100,10 +100,12 @@ export const providerHandler = (core) => {
   const has = name => registry.findIndex(p => p.name === name) !== -1;
 
   const destroy = () => {
-    each(providers, 'destroy');
+    const result = each(providers, 'destroy');
 
     instances = {};
     registry = [];
+
+    return result;
   };
 
   const init = (before) =>
