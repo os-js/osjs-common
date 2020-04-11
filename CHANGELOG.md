@@ -1,5 +1,9 @@
 # Changelog for osjs-common
 
+## 3.0.8
+
+* Made Core#destroy async
+
 ## 3.0.6
 
 * Now using @osjs/dev-meta
