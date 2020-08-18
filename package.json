@@ -4,6 +4,7 @@
   "description": "OS.js v3 Common Modules",
   "main": "dist/main.js",
   "module": "dist/main.js",
+  "typings": "index.d.ts",
   "files": [
     "dist/main.js.map",
     "dist/main.js",
