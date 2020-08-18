@@ -6,6 +6,7 @@
   "module": "dist/main.js",
   "typings": "index.d.ts",
   "files": [
+    "index.d.ts",
     "dist/main.js.map",
     "dist/main.js",
     "CHANGELOG.md",

@@ -1,5 +1,10 @@
 # Changelog for osjs-common
 
+## 3.0.9
+
+* Added TS type definitions
+* Update dependencies
+
 ## 3.0.8
 
 * Made Core#destroy async
