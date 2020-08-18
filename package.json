@@ -1,6 +1,6 @@
 {
   "name": "@osjs/common",
-  "version": "3.0.8",
+  "version": "3.0.9",
   "description": "OS.js v3 Common Modules",
   "main": "dist/main.js",
   "module": "dist/main.js",
@@ -27,13 +27,13 @@
     "osjs"
   ],
   "dependencies": {
-    "@osjs/event-emitter": "^1.0.8",
+    "@osjs/event-emitter": "^1.0.9",
     "async-dependency-graph": "^1.1.2",
     "deepmerge": "^4.2.2",
     "omit-deep": "^0.3.0"
   },
   "devDependencies": {
-    "@osjs/dev-meta": "^1.0.2"
+    "@osjs/dev-meta": "^1.1.2"
   },
   "author": "Anders Evenrud <andersevenrud@gmail.com>",
   "license": "BSD-2-Clause",
