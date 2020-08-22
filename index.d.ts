@@ -153,6 +153,11 @@ export class CoreBase extends EventEmitter {
   make(name: string, ...args: any[]): any;
 
   /**
+   * Removes a service provider
+   */
+  remove(name: string): void;
+
+  /**
    * Check if a service exists
    */
   has(name: string): boolean;
