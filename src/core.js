@@ -169,6 +169,15 @@ export class CoreBase extends EventEmitter {
   }
 
   /**
+   * Removes an instance of a provided service
+   *
+   * @param {String} name Service name
+   */
+  remove(name) {
+    this.providers.remove(name);
+  }
+
+  /**
    * Check if a service exists
    * @param {String} name Provider name
    * @return {Boolean}

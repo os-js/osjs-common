@@ -155,5 +155,14 @@ export const providerHandler = (core) => {
     return instances[name];
   };
 
-  return {register, init, bind, has, make, destroy};
+  const remove = (name) => {
+    const foundIndex = registry.findIndex(p => p.name === name);
+    if (foundIndex === -1) {
+      throw new Error(`Provider '${name}' not found`);
+    }
+
+    registry.splice(foundIndex, 1);
+  };
+
+  return {register, remove, init, bind, has, make, destroy};
 };
