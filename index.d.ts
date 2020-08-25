@@ -32,23 +32,25 @@ export as namespace osjs__common;
 import { EventEmitter } from '@osjs/event-emitter';
 
 export interface ServiceProviderOptions {
+  before?: boolean;
+  args?: object;
 }
 
 export class ServiceProvider {
   /**
    * Core instance reference
    */
-  core: CoreBase;
+  readonly core: CoreBase;
 
   /**
    * Provider options
    */
-  options: ServiceProviderOptions;
+  readonly options: any;
 
   /**
    * Constructor
    */
-  constructor(core: CoreBase, options: ServiceProviderOptions);
+  constructor(core: CoreBase, options: any);
 
   /**
    * List of provided services
@@ -75,17 +77,17 @@ export class CoreBase extends EventEmitter {
   /**
    * Logger module
    */
-  logger: any;
+  readonly logger: any;
 
   /**
    * Configuration Tree
    */
-  configuration: any;
+  readonly configuration: object;
 
   /**
    * Options
    */
-  options: any;
+  readonly options: object;
 
   /**
    * Boot has been initiated
@@ -110,7 +112,7 @@ export class CoreBase extends EventEmitter {
   /**
    * Constructor
    */
-  constructor(name?: string);
+  constructor(defaultConfiguration: object, configuration: object, options: object);
 
   /**
    * Destroy core instance
@@ -135,7 +137,7 @@ export class CoreBase extends EventEmitter {
   /**
    * Register a service provider
    */
-  register(ref: typeof ServiceProvider, options: any): void;
+  register(ref: typeof ServiceProvider, options: ServiceProviderOptions): void;
 
   /**
    * Register a instanciator provider
@@ -150,7 +152,7 @@ export class CoreBase extends EventEmitter {
   /**
    * Create an instance of a provided service
    */
-  make(name: string, ...args: any[]): any;
+  make<T>(name: string, ...args: any[]): T;
 
   /**
    * Check if a service exists
