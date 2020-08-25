@@ -1,6 +1,6 @@
 # Changelog for osjs-common
 
-## 3.0.10
+## 3.0.10 - 3.0.11
 
 * Updated TS type definitions
 
