@@ -1,7 +1,7 @@
 {
   "name": "@osjs/common",
-  "version": "3.0.11",
-  "description": "OS.js v3 Common Modules",
+  "version": "3.0.12",
+  "description": "OS.js Common Modules",
   "main": "dist/main.js",
   "module": "dist/main.js",
   "typings": "index.d.ts",
